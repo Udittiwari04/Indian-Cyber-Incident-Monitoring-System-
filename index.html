@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Indian Cyber Incident Monitoring</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <h1>Indian Cyber Incident Monitoring System</h1>
+        <p>Real-Time Insights into Indian Cyberspace Threats</p>
+    </header>
+    
+    <nav>
+        <ul>
+            <li><a href="#latest-incidents">Latest Incidents</a></li>
+            <li><a href="#dashboard">Dashboard</a></li>
+            <li><a href="#protection-tips">Protection Tips</a></li>
+            <li><a href="#Asked question">FAQs</a></li>
+        </ul>
+    </nav>
+    
+    <main>
+        <section class="overview">
+            <section id="latest-incidents">
+                <div class="latest-incidents">
+                    <h2>Latest Incidents</h2>
+                    <div class="scroll-container">
+                        <ul id="incidentList">
+                            <!-- Incident list items will be populated by JavaScript -->
+                        </ul>
+                    </div>
+                    <div class="controls">
+                        <button id="startScroll" class="control-button"><i class="fas fa-play"></i></button>
+                        <button id="stopScroll" class="control-button"><i class="fas fa-stop"></i></button>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="dashboard">
+                <h2>Dashboard Overview</h2>
+                <div class="statistics">
+                    <div class="chart-container">
+                        <canvas id="threatCategoriesChart"></canvas>
+                        <span class="chart-name">Threat Categories Chart</span>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="affectedSectorsChart"></canvas>
+                        <span class="chart-name">Affected Sectors Chart</span>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="severityLevelsChart"></canvas>
+                        <span class="chart-name">Severity Levels Chart</span>
+                    </div>
+                </div>
+            </section>
+
+            <section id="protection-tips" class="protection-tips">
+                <h2>How to Protect Against Cyber Attacks</h2>
+                <div class="tips-container">
+                    <div class="tip-block">
+                        <h3>1. Regularly Update Software</h3>
+                        <p>Keep your operating system, software, and applications up to date to protect against known vulnerabilities.</p>
+                    </div>
+                    <div class="tip-block">
+                        <h3>2. Use Strong, Unique Passwords</h3>
+                        <p>Ensure your passwords are strong and unique for each account. Consider using a password manager to manage them securely.</p>
+                    </div>
+                    <div class="tip-block">
+                        <h3>3. Implement Multi-Factor Authentication</h3>
+                        <p>Enable multi-factor authentication wherever possible to add an extra layer of security.</p>
+                    </div>
+                    <div class="tip-block">
+                        <h3>4. Be Cautious with Emails and Links</h3>
+                        <p>Avoid clicking on suspicious links or opening attachments from unknown sources.</p>
+                    </div>
+                    <div class="tip-block">
+                        <h3>5. Regular Backups</h3>
+                        <p>Regularly back up your data to ensure you can recover it in case of an attack.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="cyber-threats" class="protection-tips">
+                <h2>Dealing with Gradually Increasing Cyber Threats</h2>
+                <div class="tips-container">
+                    <div class="tip-block">
+                        <h3>1. Monitor Threat Trends</h3>
+                        <p>Stay updated with the latest trends and statistics on cyber threats to anticipate and prepare for potential attacks.</p>
+                    </div>
+                    <div class="tip-block">
+                        <h3>2. Enhance Security Measures</h3>
+                        <p>Continuously assess and improve your security measures based on the evolving threat landscape.</p>
+                    </div>
+                    <div class="tip-block">
+                        <h3>3. Employee Training</h3>
+                        <p>Conduct regular training sessions for employees to recognize and respond to cyber threats effectively.</p>
+                    </div>
+                    <div class="tip-block">
+                        <h3>4. Implement Intrusion Detection Systems</h3>
+                        <p>Utilize intrusion detection systems to identify and respond to potential threats in real-time.</p>
+                    </div>
+                    <div class="tip-block">
+                        <h3>5. Develop an Incident Response Plan</h3>
+                        <p>Prepare and regularly update an incident response plan to efficiently handle any cyber incidents.</p>
+                    </div>
+                </div>
+            </section>
+        </section>
+    </main>
+    
+    <footer>
+        <p>&copy; 2024 Indian Cyber Incident Monitoring System</p>
+    </footer>
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="sccript.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Sample data
+            const incidents = [
+                {id: 1, type: "Ransomware attacks", sector: "Finance", severity: "High", description: "According to a Sophos report, nearly 64% of Indian organizations surveyed in 2023 were hit by ransomware attacks. The report also noted that while the attack rates decreased year-on-year, the impact on victims increased."},
+                {id: 2, type: "Data Leak", sector: "Security", severity: "Medium", description: "Telangana Police data leak: 20-year-old hacker raises six serious questions"},
+                {id: 3, type: "DDoS", sector: "Government", severity: "Critical", description: "DDoS attack on government website."},
+                {id: 4, type: "Phishing", sector: "Healthcare", severity: "High", description: "Phishing attack targeting healthcare workers."}
+            ];
+
+            // Populate latest incidents
+            const incidentList = document.getElementById("incidentList");
+            incidents.forEach(incident => {
+                const listItem = document.createElement("li");
+                listItem.textContent = `${incident.type} - ${incident.description}`;
+                listItem.addEventListener("click", () => showIncidentDetail(incident));
+                incidentList.appendChild(listItem);
+            });
+
+            // Show incident details
+            function showIncidentDetail(incident) {
+                const incidentDetail = document.getElementById("incidentDetail");
+                incidentDetail.innerHTML = `
+                    <h3>${incident.type} - ${incident.severity}</h3>
+                    <p><strong>Sector:</strong> ${incident.sector}</p>
+                    <p><strong>Description:</strong> ${incident.description}</p>
+                `;
+            }
+
+            // Start and stop scrolling
+            const scrollContainer = document.querySelector(".scroll-container");
+            const incidentListElement = document.getElementById("incidentList");
+            const startButton = document.getElementById("startScroll");
+            const stopButton = document.getElementById("stopScroll");
+
+            startButton.addEventListener("click", () => {
+                incidentListElement.style.animationPlayState = "running";
+            });
+
+            stopButton.addEventListener("click", () => {
+                incidentListElement.style.animationPlayState = "paused";
+            });
+
+            // Chart.js example charts
+            const threatCategoriesCtx = document.getElementById('threatCategoriesChart').getContext('2d');
+            const affectedSectorsCtx = document.getElementById('affectedSectorsChart').getContext('2d');
+            const severityLevelsCtx = document.getElementById('severityLevelsChart').getContext('2d');
+
+            const threatCategoriesChart = new Chart(threatCategoriesCtx, {
+                type: 'pie',
+                data: {
+                    labels: ['Malware', 'Phishing', 'DDoS', 'APTs'],
+                    datasets: [{
+                        data: [40, 30, 20, 10],
+                        backgroundColor: ['#e74c3c', '#f39c12', '#2980b9', '#8e44ad']
+                    }]
+                }
+            });
+
+            const affectedSectorsChart = new Chart(affectedSectorsCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Finance', 'Healthcare', 'Government'],
+                    datasets: [{
+                        data: [30, 50, 20],
+                        backgroundColor: ['#27ae60', '#f39c12', '#2980b9']
+                    }]
+                }
+            });
+
+            const severityLevelsChart = new Chart(severityLevelsCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Low', 'Medium', 'High', 'Critical'],
+                    datasets: [{
+                        data: [20, 30, 30, 20],
+                        backgroundColor: ['#2ecc71', '#f1c40f', '#e67e22', '#e74c3c']
+                    }]
+                }
+            });
+        });
+    </script>
+</body>
+</html>
