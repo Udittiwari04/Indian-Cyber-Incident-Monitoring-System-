@@ -1,1 +1,2 @@
-# Indian-Cyber-Incident-Monitoring-System-
+# Indian-Cyber-Incident-Monitoring-System-Our idea is to create an automated model that collects all breaches and cyber incidents from specific sites in real-time. The model will analyze the data for accuracy and relevancy, and further classify it. This process will enhance the potential for threat assessment.
+![image](https://github.com/user-attachments/assets/d680e984-2e8b-4c84-83aa-cd719e39c310)
